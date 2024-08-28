@@ -10,5 +10,6 @@ public class UserResponseDto {
     private String name;
     private String email;
     private String password;
-    private Integer cpf_cnpj;
+    private String cpf_cnpj;
+    private Boolean is_active;
 }

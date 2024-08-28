@@ -47,20 +47,20 @@ public class UserServiceImpl implements UserServiceInterface {
         user.setEmail(userRequestDto.getEmail());
         user.setPassword(userRequestDto.getPassword());
         user.setCpf_cnpj(userRequestDto.getCpf_cnpj());
+        user.setIs_active(userRequestDto.getIs_active());
 
         // Salva o usuário no banco de dados e obtém a entidade persistida com o ID gerado.
         User savedUser = userRepository.save(user);
 
         // Cria um DTO de resposta com as informações do usuário salvo.
-        UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setId(savedUser.getId());
-        userResponseDto.setName(savedUser.getName());
-        userResponseDto.setEmail(savedUser.getEmail());
-        userResponseDto.setPassword(savedUser.getPassword());
-        userResponseDto.setCpf_cnpj(savedUser.getCpf_cnpj());
+        return getUserResponse(savedUser);
+    }
 
-        // Retorna o DTO com as informações do usuário salvo.
-        return userResponseDto;
+    @Override
+    public UserResponseDto getUser(Long id) {
+        User userExist = userRepository.findById(id).orElseThrow();
+
+        return getUserResponse(userExist);
     }
 
     @Override
@@ -70,15 +70,21 @@ public class UserServiceImpl implements UserServiceInterface {
         userExist.setEmail(userRequestDto.getEmail());
         userExist.setPassword(userRequestDto.getPassword());
         userExist.setCpf_cnpj(userRequestDto.getCpf_cnpj());
+        userExist.setIs_active(userRequestDto.getIs_active());
 
         userRepository.save(userExist);
 
+        return getUserResponse(userExist);
+    }
+
+    private UserResponseDto getUserResponse(User user){
         UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setId(userExist.getId());
-        userResponseDto.setName(userExist.getName());
-        userResponseDto.setEmail(userExist.getEmail());
-        userResponseDto.setPassword(userExist.getPassword());
-        userResponseDto.setCpf_cnpj(userExist.getCpf_cnpj());
+        userResponseDto.setId(user.getId());
+        userResponseDto.setName(user.getName());
+        userResponseDto.setEmail(user.getEmail());
+        userResponseDto.setPassword(user.getPassword());
+        userResponseDto.setCpf_cnpj(user.getCpf_cnpj());
+        userResponseDto.setIs_active(user.getIs_active());
 
         return userResponseDto;
     }
