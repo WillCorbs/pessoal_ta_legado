@@ -8,4 +8,7 @@ import lombok.NoArgsConstructor;
 public class UserResponseDto {
     private Long id;
     private String name;
+    private String email;
+    private String password;
+    private Integer cpf_cnpj;
 }

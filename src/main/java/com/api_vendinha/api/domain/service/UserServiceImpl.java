@@ -44,6 +44,9 @@ public class UserServiceImpl implements UserServiceInterface {
         User user = new User();
         // Define o nome do usuário a partir do DTO.
         user.setName(userRequestDto.getName());
+        user.setEmail(userRequestDto.getEmail());
+        user.setPassword(userRequestDto.getPassword());
+        user.setCpf_cnpj(userRequestDto.getCpf_cnpj());
 
         // Salva o usuário no banco de dados e obtém a entidade persistida com o ID gerado.
         User savedUser = userRepository.save(user);
@@ -52,8 +55,31 @@ public class UserServiceImpl implements UserServiceInterface {
         UserResponseDto userResponseDto = new UserResponseDto();
         userResponseDto.setId(savedUser.getId());
         userResponseDto.setName(savedUser.getName());
+        userResponseDto.setEmail(savedUser.getEmail());
+        userResponseDto.setPassword(savedUser.getPassword());
+        userResponseDto.setCpf_cnpj(savedUser.getCpf_cnpj());
 
         // Retorna o DTO com as informações do usuário salvo.
+        return userResponseDto;
+    }
+
+    @Override
+    public UserResponseDto update(Long id, UserRequestDto userRequestDto) {
+        User userExist = userRepository.findById(id).orElseThrow();
+        userExist.setName(userRequestDto.getName());
+        userExist.setEmail(userRequestDto.getEmail());
+        userExist.setPassword(userRequestDto.getPassword());
+        userExist.setCpf_cnpj(userRequestDto.getCpf_cnpj());
+
+        userRepository.save(userExist);
+
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setId(userExist.getId());
+        userResponseDto.setName(userExist.getName());
+        userResponseDto.setEmail(userExist.getEmail());
+        userResponseDto.setPassword(userExist.getPassword());
+        userResponseDto.setCpf_cnpj(userExist.getCpf_cnpj());
+
         return userResponseDto;
     }
 }
