@@ -22,4 +22,6 @@ public interface UserServiceInterface {
     UserResponseDto getUser(Long id);
 
     UserResponseDto update(Long id, UserRequestDto userRequestDto);
+
+    UserResponseDto updateStatus(Long id, UserRequestDto userRequestDto);
 }

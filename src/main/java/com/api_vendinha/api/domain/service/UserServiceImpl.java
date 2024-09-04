@@ -77,7 +77,17 @@ public class UserServiceImpl implements UserServiceInterface {
         return getUserResponse(userExist);
     }
 
-    private UserResponseDto getUserResponse(User user){
+    @Override
+    public UserResponseDto updateStatus(Long id, UserRequestDto userRequestDto) {
+        User userExist = userRepository.findById(id).orElseThrow();
+        userExist.setIs_active(userRequestDto.getIs_active());
+
+        userRepository.save(userExist);
+
+        return getUserResponse(userExist);
+    }
+
+    private UserResponseDto getUserResponse(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();
         userResponseDto.setId(user.getId());
         userResponseDto.setName(user.getName());
