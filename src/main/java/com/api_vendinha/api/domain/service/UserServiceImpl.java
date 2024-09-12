@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
     private UserResponseDto getUserResponse(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();
+
         userResponseDto.setId(user.getId());
         userResponseDto.setName(user.getName());
         userResponseDto.setEmail(user.getEmail());
