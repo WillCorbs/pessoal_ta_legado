@@ -2,6 +2,9 @@ package com.api_vendinha.api.domain.service;
 
 import com.api_vendinha.api.domain.dtos.request.UserRequestDto;
 import com.api_vendinha.api.domain.dtos.response.UserResponseDto;
+import com.api_vendinha.api.domain.entities.User;
+
+import java.util.List;
 
 /**
  * Interface que define os serviços relacionados a usuários.
@@ -24,4 +27,6 @@ public interface UserServiceInterface {
     UserResponseDto update(Long id, UserRequestDto userRequestDto);
 
     UserResponseDto updateStatus(Long id, UserRequestDto userRequestDto);
+
+    List<UserResponseDto> getAllUsers();
 }

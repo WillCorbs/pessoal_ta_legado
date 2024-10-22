@@ -7,6 +7,8 @@ import com.api_vendinha.api.domain.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Implementação do serviço de usuários.
  *
@@ -87,6 +89,23 @@ public class UserServiceImpl implements UserServiceInterface {
         userRepository.save(userExist);
 
         return getUserResponse(userExist);
+    }
+
+    @Override
+    public List<UserResponseDto> getAllUsers() {
+        return userRepository.findAll().stream().map(user -> {
+            UserResponseDto userResponseDto = new UserResponseDto();
+
+            userResponseDto.setId(user.getId());
+            userResponseDto.setName(user.getName());
+            userResponseDto.setEmail(user.getEmail());
+            userResponseDto.setPassword(user.getPassword());
+            userResponseDto.setCpf_cnpj(user.getCpf_cnpj());
+            userResponseDto.setIs_active(user.getIs_active());
+            userResponseDto.setCep(user.getCep());
+
+            return userResponseDto;
+        }).toList();
     }
 
     private UserResponseDto getUserResponse(User user) {
